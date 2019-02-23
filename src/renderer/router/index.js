@@ -13,7 +13,26 @@ export default new Router({
     {
       path: '/client/:id',
       name: 'client-page',
-      component: require('@/components/pages/Client').default
+      component: require('@/components/pages/Client').default,
+      props: { showInfo: true }
+    },
+    {
+      path: '/client/:id/hardware',
+      name: 'client-hardware-page',
+      component: require('@/components/pages/Client').default,
+      props: { showHardware: true }
+    },
+    {
+      path: '/client/:id/info',
+      name: 'client-info-page',
+      component: require('@/components/pages/Client').default,
+      props: { showInfo: true }
+    },
+    {
+      path: '/client/:id/software',
+      name: 'client-software-page',
+      component: require('@/components/pages/Client').default,
+      props: { showSoftware: true }
     },
     {
       path: '*',

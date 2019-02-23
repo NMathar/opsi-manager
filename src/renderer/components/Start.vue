@@ -1,5 +1,7 @@
 <template>
-
+    <div>
+        <h2>//TODO: add Start Page</h2>
+    </div>
 </template>
 
 <script>
