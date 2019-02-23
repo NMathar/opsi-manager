@@ -16,7 +16,7 @@
             </b-form>
         </div>
         <b-nav vertical>
-            <b-nav-item v-for="client in clients" :to="{ name: 'client-page', params: { id: client.id }}">{{client.id}}</b-nav-item>
+            <b-nav-item v-for="client in clients" :key="client.id" :to="{ name: 'client-page', params: { id: client.id }}">{{client.id}}</b-nav-item>
         </b-nav>
     </div>
 </template>
