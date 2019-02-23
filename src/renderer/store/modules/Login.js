@@ -27,7 +27,7 @@ const actions = {
   async login ({commit}, creds) {
     commit(LOGIN) // show spinner
     const api = new OPSIApi(creds.url, creds.user, creds.password)
-    const {success} = api.isUserAdmin()
+    const {success} = await api.isUserAdmin()
     if (success) {
       commit(LOGIN_SUCCESS)
       localStorage.setItem('api', api)

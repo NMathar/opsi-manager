@@ -63,15 +63,16 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log(localStorage.getItem('api'))
-    if (localStorage.getItem('api') == null) {
-      console.log('To Login')
+    if (localStorage.getItem('api') === null) {
       next({
         path: '/login',
         params: {nextUrl: to.fullPath}
       })
     } else {
-      next({name: 'start-page'})
+      // console.log(localStorage.getItem('api'))
+      // console.log('To start')
+      // next({path: '/'})
+      next()
     }
   } else {
     next()
