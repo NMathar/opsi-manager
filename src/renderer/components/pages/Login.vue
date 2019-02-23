@@ -1,8 +1,8 @@
 <template>
     <b-container>
-        <router-link to="/" class="btn btn-lg btn-default">Zurück</router-link>
-        <b-row>
-            <b-col md="8" sm="12" offset-md="2">
+        <b-row class="mt-3">
+            <b-col md="8" sm="12" offset-md="4">
+                <h3>OPSI Manger Login</h3>
                 <b-form @submit="onSubmit">
                     <b-input-group size="lg" class="mt-3">
                         <b-input-group-prepend is-text>

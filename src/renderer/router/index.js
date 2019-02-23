@@ -63,7 +63,7 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('api') === null) {
+    if (localStorage.getItem('password') === null) {
       next({
         path: '/login',
         params: {nextUrl: to.fullPath}

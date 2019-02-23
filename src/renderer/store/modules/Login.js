@@ -7,7 +7,7 @@ const LOGOUT = 'LOGOUT'
 const state = {
   // user: false,
   // password: false,
-  isLoggedIn: !!localStorage.getItem('api')
+  isLoggedIn: !!localStorage.getItem('password')
 }
 
 const mutations = {
@@ -20,6 +20,9 @@ const mutations = {
   },
   [LOGOUT] (state) {
     state.isLoggedIn = false
+  },
+  setApi (state, api) {
+    state.api = api
   }
 }
 
@@ -30,24 +33,31 @@ const actions = {
     const {success} = await api.isUserAdmin()
     if (success) {
       commit(LOGIN_SUCCESS)
-      localStorage.setItem('api', api)
+      localStorage.setItem('user', creds.user)
+      localStorage.setItem('url', creds.url)
+      localStorage.setItem('password', creds.password)
     }
   },
   logout ({commit}) {
-    localStorage.removeItem('api')
+    localStorage.removeItem('url')
+    localStorage.removeItem('user')
+    localStorage.removeItem('password')
     commit(LOGOUT)
   }
 }
 
-// const getters = {
-//   GET_API: state => {
-//     return new OPSIApi(state.server, state.user, state.password)
-//   }
-// }
+const getters = {
+  GET_API: state => {
+    return new OPSIApi(localStorage.getItem('url'), localStorage.getItem('user'), localStorage.getItem('password'))
+  },
+  isLoggedIn: state => {
+    return state.isLoggedIn
+  }
+}
 
 export default {
   state,
   mutations,
-  actions
-  // getters
+  actions,
+  getters
 }
