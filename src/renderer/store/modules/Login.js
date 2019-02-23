@@ -2,11 +2,13 @@ import {OPSIApi} from 'opsi-api'
 
 const LOGIN = 'LOGIN'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const LOGIN_ERROR = 'LOGIN_ERROR'
 const LOGOUT = 'LOGOUT'
 
 const state = {
   // user: false,
   // password: false,
+  pending: false,
   isLoggedIn: !!localStorage.getItem('password')
 }
 
@@ -18,11 +20,12 @@ const mutations = {
     state.isLoggedIn = true
     state.pending = false
   },
+  [LOGIN_ERROR] (state) {
+    state.isLoggedIn = false
+    state.pending = false
+  },
   [LOGOUT] (state) {
     state.isLoggedIn = false
-  },
-  setApi (state, api) {
-    state.api = api
   }
 }
 
@@ -36,6 +39,10 @@ const actions = {
       localStorage.setItem('user', creds.user)
       localStorage.setItem('url', creds.url)
       localStorage.setItem('password', creds.password)
+    } else {
+      commit(LOGIN_ERROR)
+      // return 'Login Failed'
+      throw new Error('Login Failed')
     }
   },
   logout ({commit}) {
@@ -52,6 +59,9 @@ const getters = {
   },
   isLoggedIn: state => {
     return state.isLoggedIn
+  },
+  isLoginPending: state => {
+    return state.pending
   }
 }
 

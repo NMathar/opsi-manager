@@ -8,7 +8,9 @@
 
 
                 <b-col cols="8">
-                    <b-button variant="danger" v-if="isLoggedIn" @click="logout">Logout</b-button>
+                    <b-button variant="danger" v-if="isLoggedIn" @click="logout" class="mt-2 float-right">
+                        <font-awesome-icon icon="power-off"/>
+                    </b-button>
                     <router-view></router-view>
                 </b-col>
             </b-row>
@@ -18,6 +20,10 @@
 
 <script>
   import Sidebar from './components/parts/ClientSidebar'
+  import {library} from '@fortawesome/fontawesome-svg-core'
+  import {faPowerOff} from '@fortawesome/free-solid-svg-icons'
+
+  library.add(faPowerOff)
 
   export default {
     name: 'opsi-manager',
@@ -30,7 +36,7 @@
     methods: {
       logout () {
         this.$store.dispatch('logout')
-        this.$router.push('/')
+        location.reload()
       }
     }
   }

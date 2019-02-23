@@ -39,7 +39,7 @@
                         </b-form-input>
                     </b-input-group>
 
-                    <b-button type="submit" class="mt-3" size="lg" variant="primary">Login</b-button>
+                    <b-button :disabled="isLoginPending" type="submit" class="mt-3" size="lg" variant="primary">Login</b-button>
                 </b-form>
             </b-col>
         </b-row>
@@ -65,6 +65,11 @@
         }
       }
     },
+    computed: {
+      isLoginPending () {
+        return this.$store.getters.isLoginPending
+      }
+    },
     methods: {
       onSubmit (evt) {
         evt.preventDefault()
@@ -79,6 +84,8 @@
           password: this.form.password
         }).then(() => {
           this.$router.push('/')
+        }).catch((e) => {
+          alert(e.message)
         })
       }
     }

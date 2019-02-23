@@ -1,8 +1,6 @@
 <template>
     <div>
         <h2>//TODO: add Start Page</h2>
-
-        <b-button to="/login">Login</b-button>
     </div>
 </template>
 
