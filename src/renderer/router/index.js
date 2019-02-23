@@ -3,36 +3,56 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
       name: 'start-page',
-      component: require('@/components/Start').default
+      component: require('@/components/Start').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'login-page',
+      component: require('@/components/pages/Login').default
     },
     {
       path: '/client/:id',
       name: 'client-page',
       component: require('@/components/pages/Client').default,
-      props: { showInfo: true }
+      props: {showInfo: true},
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/client/:id/hardware',
       name: 'client-hardware-page',
       component: require('@/components/pages/Client').default,
-      props: { showHardware: true }
+      props: {showHardware: true},
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/client/:id/info',
       name: 'client-info-page',
       component: require('@/components/pages/Client').default,
-      props: { showInfo: true }
+      props: {showInfo: true},
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/client/:id/software',
       name: 'client-software-page',
       component: require('@/components/pages/Client').default,
-      props: { showSoftware: true }
+      props: {showSoftware: true},
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '*',
@@ -40,3 +60,32 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log(localStorage.getItem('api'))
+    if (localStorage.getItem('api') == null) {
+      console.log('To Login')
+      next({
+        path: '/login',
+        params: {nextUrl: to.fullPath}
+      })
+    } else {
+      next({name: 'start-page'})
+    }
+  } else {
+    next()
+  }
+  //
+  // else if (to.matched.some(record => record.meta.guest)) {
+  //   if (localStorage.getItem('jwt') == null) {
+  //     next()
+  //   } else {
+  //     next({name: 'userboard'})
+  //   }
+  // } else {
+  //   next()
+  // }
+})
+
+export default router

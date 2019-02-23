@@ -4,7 +4,7 @@
       <b-row class="h-100">
         <!--TODO: Add left sidebar with client-->
         <b-col cols="4" class="sidebar border-right border-primary">
-          <sidebar></sidebar>
+          <!--<sidebar></sidebar>-->
         </b-col>
 
 
