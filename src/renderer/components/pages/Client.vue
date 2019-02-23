@@ -30,7 +30,6 @@
 </template>
 
 <script>
-  import {OPSIApi} from 'opsi-api'
   import Loading from '../parts/Loading'
   import HardwareTab from '../tabs/Hardware'
   import InfoTab from '../tabs/Info'
@@ -46,8 +45,8 @@
       }
     },
     computed: {
-      opsiLogin () {
-        return this.$store.getters.GET_LOGIN
+      api () {
+        return this.$store.getters.GET_API
       }
     },
     watch: {
@@ -63,8 +62,7 @@
     },
     methods: {
       loadClientInfo () {
-        const api = new OPSIApi(this.opsiLogin.server, this.opsiLogin.user, this.opsiLogin.password)
-        api.getAllClientData(this.$route.params.id).then((res) => {
+        this.api.getAllClientData(this.$route.params.id).then((res) => {
           // console.log(res.data)
           this.client = res.data
         })

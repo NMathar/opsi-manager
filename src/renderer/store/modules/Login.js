@@ -1,3 +1,4 @@
+import {OPSIApi} from 'opsi-api'
 const state = {
   // user: false,
   // password: false,
@@ -15,8 +16,8 @@ const actions = {
 }
 
 const getters = {
-  GET_LOGIN: state => {
-    return {server: state.server, user: state.user, password: state.password}
+  GET_API: state => {
+    return new OPSIApi(state.server, state.user, state.password)
   }
 }
 

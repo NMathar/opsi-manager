@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-container fluid v-if="opsiLogin.user" class="h-100">
+    <b-container fluid class="h-100">
       <b-row class="h-100">
         <!--TODO: Add left sidebar with client-->
         <b-col cols="4" class="sidebar border-right border-primary">
@@ -20,12 +20,7 @@
 
   export default {
     name: 'opsi-manager',
-    components: {Sidebar},
-    computed: {
-      opsiLogin () {
-        return this.$store.getters.GET_LOGIN
-      }
-    }
+    components: {Sidebar}
   }
 </script>
 

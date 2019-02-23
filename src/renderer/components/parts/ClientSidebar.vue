@@ -24,7 +24,7 @@
 <script>
   import {library} from '@fortawesome/fontawesome-svg-core'
   import {faSearch, faThList, faDesktop} from '@fortawesome/free-solid-svg-icons'
-  import {OPSIApi} from 'opsi-api'
+  // import {OPSIApi} from 'opsi-api'
 
   library.add(faSearch, faThList, faDesktop)
 
@@ -36,13 +36,12 @@
       }
     },
     computed: {
-      opsiLogin () {
-        return this.$store.getters.GET_LOGIN
+      api () {
+        return this.$store.getters.GET_API
       }
     },
     mounted () {
-      const api = new OPSIApi(this.opsiLogin.server, this.opsiLogin.user, this.opsiLogin.password)
-      api.getAllClients().then((res) => {
+      this.api.getAllClients().then((res) => {
         // console.log(res.data)
         this.clients = res.data
       })
