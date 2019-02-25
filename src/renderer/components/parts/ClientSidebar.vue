@@ -21,10 +21,16 @@
                 </b-button>
             </b-form>
         </div>
-        <b-nav vertical>
+        <b-nav vertical v-if="!groupNav">
             <b-nav-item v-for="client in clients" :key="client.id"
                         :to="{ name: 'client-page', params: { id: client.id }}">{{client.id}}
             </b-nav-item>
+        </b-nav>
+        <b-nav vertical v-if="groupNav">
+            <b-nav-item-dropdown v-for="group in groups" :key="group.id" :text="group.id">
+                <b-dropdown-item v-for="client in getClientsFromGroup(group.id)" :key="client.objectId">{{client.objectId}}
+                </b-dropdown-item>
+            </b-nav-item-dropdown>
         </b-nav>
     </div>
 </template>
@@ -39,7 +45,9 @@
     name: 'ClientSidebar',
     data () {
       return {
-        clients: []
+        groupNav: true,
+        clients: [],
+        groups: []
       }
     },
     computed: {
@@ -47,10 +55,20 @@
         return this.$store.getters.GET_API
       }
     },
+    methods: {
+      async getClientsFromGroup (groupId) {
+        const clients = await this.api.getGroupClients(groupId)
+        return clients.data
+      }
+    },
     mounted () {
       this.api.getAllClients().then((res) => {
         // console.log(res.data)
         this.clients = res.data
+      })
+      this.api.getAllHostGroups().then((res) => {
+        // console.log(res.data)
+        this.groups = res.data
       })
     }
   }

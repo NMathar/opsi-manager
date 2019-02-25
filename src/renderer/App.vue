@@ -44,4 +44,9 @@
 
 <style>
     /* CSS */
+    .dropdown-menu{
+        position: initial !important;
+        transform: none !important;
+        border: none !important;
+    }
 </style>
