@@ -3,6 +3,12 @@
         <h2>Client Infos for {{ $route.params.id }}</h2>
         <Loading :loading="!client"></Loading>
 
+        <p>Group:</p>
+        <b-form-select v-model="clientgroup" :options="groups"/>
+        <b-button variant="default" class="mt-2 float-right">
+            Add to Group
+        </b-button>
+        {{clientgroup}}
         <div class="clientInfo" v-if="client">
             <b-nav tabs>
                 <b-nav-item :active="showInfo" :to="{ name: 'client-info-page', params: { id: $route.params.id }}">
@@ -41,7 +47,9 @@
     props: ['showHardware', 'showInfo', 'showSoftware'],
     data () {
       return {
-        client: false
+        client: false,
+        groups: [],
+        clientgroup: null
       }
     },
     computed: {
@@ -66,10 +74,21 @@
           // console.log(res.data)
           this.client = res.data
         })
+      },
+      async loadGroups () {
+        const groups = await this.api.getAllHostGroups()
+        // console.log(res.data)
+        let self = this
+        self.groups.push({value: null, text: 'Please select an option'})
+        groups.data.forEach(function (element) {
+          console.log(element)
+          self.groups.push({value: element.ident, text: element.ident})
+        })
       }
     },
     mounted () {
       this.loadClientInfo()
+      this.loadGroups()
     }
   }
 </script>

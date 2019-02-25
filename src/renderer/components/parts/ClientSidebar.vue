@@ -45,7 +45,7 @@
     name: 'ClientSidebar',
     data () {
       return {
-        groupNav: true,
+        groupNav: false,
         clients: [],
         groups: []
       }
