@@ -27,8 +27,9 @@
             </b-nav-item>
         </b-nav>
         <b-nav vertical v-if="groupNav">
-            <b-nav-item-dropdown v-for="group in groups" :key="group.id" :text="group.id">
-                <b-dropdown-item v-for="client in getClientsFromGroup(group.id)" :key="client.objectId">{{client.objectId}}
+            <b-nav-item-dropdown v-for="(group, index) in groups" :key="index" :text="index">
+                <b-dropdown-item v-for="client in group" :key="client.clientId">
+                    {{client.clientId}}
                 </b-dropdown-item>
             </b-nav-item-dropdown>
         </b-nav>
@@ -45,7 +46,7 @@
     name: 'ClientSidebar',
     data () {
       return {
-        groupNav: false,
+        groupNav: true,
         clients: [],
         groups: []
       }
@@ -56,19 +57,31 @@
       }
     },
     methods: {
-      async getClientsFromGroup (groupId) {
-        const clients = await this.api.getGroupClients(groupId)
-        return clients.data
+      async getGroups () {
+        const {data} = await this.api.getAllHostGroupsWithClients()
+        await this.$nextTick()
+        this.groups = data
+        console.log(this.groups)
+      }
+    },
+    watch: {
+      groups: function (newGroups, oldGroups) {
+        console.log(oldGroups)
+        console.log(newGroups)
+        // console.log(Object.keys(newGroups).length)
       }
     },
     mounted () {
+      let self = this
       this.api.getAllClients().then((res) => {
         // console.log(res.data)
         this.clients = res.data
       })
-      this.api.getAllHostGroups().then((res) => {
-        // console.log(res.data)
-        this.groups = res.data
+      this.$nextTick(function () {
+        self.api.getAllHostGroupsWithClients().then((res) => {
+          // console.log(res.data)
+          self.groups = res.data
+        })
       })
     }
   }

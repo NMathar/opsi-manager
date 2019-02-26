@@ -5,7 +5,7 @@
 
         <p>Group:</p>
         <b-form-select v-model="clientgroup" :options="groups"/>
-        <b-button variant="default" class="mt-2 float-right">
+        <b-button variant="default" @click="addToGroup" class="mt-2 float-right">
             Add to Group
         </b-button>
         {{clientgroup}}
@@ -70,7 +70,7 @@
     },
     methods: {
       loadClientInfo () {
-        this.api.getAllClientData(this.$route.params.id).then((res) => {
+        this.api.getClientDetails(this.$route.params.id).then((res) => {
           // console.log(res.data)
           this.client = res.data
         })
@@ -81,9 +81,14 @@
         let self = this
         self.groups.push({value: null, text: 'Please select an option'})
         groups.data.forEach(function (element) {
-          console.log(element)
           self.groups.push({value: element.ident, text: element.ident})
         })
+      },
+      async addToGroup () {
+        const {success, message} = await this.api.addClientToGroup(this.$route.params.id, this.clientgroup)
+        console.log(success)
+        console.log(message)
+        // TODO: add notification
       }
     },
     mounted () {
