@@ -55,6 +55,15 @@ let router = new Router({
       }
     },
     {
+      path: '/client/:id/groups',
+      name: 'client-group-page',
+      component: require('@/components/pages/Client').default,
+      props: {showGroups: true},
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '*',
       redirect: '/'
     }

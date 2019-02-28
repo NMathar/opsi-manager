@@ -6,9 +6,9 @@
 
 <script>
   import {library} from '@fortawesome/fontawesome-svg-core'
-  import {faUser, faSpinner, faCoffee} from '@fortawesome/free-solid-svg-icons'
+  import {faSpinner} from '@fortawesome/free-solid-svg-icons'
 
-  library.add(faUser, faSpinner, faCoffee)
+  library.add(faSpinner)
 
   export default {
     name: 'Loading',

@@ -1,17 +1,18 @@
 <template>
-  <div class="hardware">
-    <div v-if="hardwaredata">
-      <h3>Hardware</h3>
-      {{hardwaredata}}
+  <div class="info">
+    <div v-if="groups">
+      <h3>Groups</h3>
+      {{groups}}
     </div>
-    <InlineLoading :loading="!hardwaredata"></InlineLoading>
+    <InlineLoading :loading="!groups"></InlineLoading>
   </div>
 </template>
 
 <script>
   import InlineLoading from '../parts/Inline-Loading'
+
   export default {
-    name: 'Hardware',
+    name: 'ClientGroups',
     props: ['clientid'],
     components: {InlineLoading},
     computed: {
@@ -21,14 +22,14 @@
     },
     data () {
       return {
-        hardwaredata: []
+        groups: []
       }
     },
     mounted () {
-      this.hardwaredata = false
-      this.api.getClientHardware(this.clientid).then((res) => {
+      this.groups = false
+      this.api.getClientGroups(this.clientid).then((res) => {
         // console.log(res.data)
-        this.hardwaredata = res.data
+        this.groups = res.data
       })
     }
   }
