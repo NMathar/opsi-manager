@@ -3,13 +3,21 @@
     <h2>Client Infos for {{ $route.params.id }}</h2>
     <Loading :loading="!client"></Loading>
 
-    <p>Group:</p>
-    <b-form-select v-model="clientgroup" :options="groups"/>
-    <b-button variant="default" @click="addToGroup" class="mt-2 float-right">
-      Add to Group
-    </b-button>
-    {{clientgroup}}
+
     <div class="clientInfo" v-if="client">
+      <div class="client-status-area">
+        <b-badge variant="secondary">Last seen: {{new Date()}}</b-badge>
+        <b-badge variant="success">On</b-badge>
+        <b-badge variant="warning">Packages to upgrade: {{Math.floor((Math.random() * 100) + 1)}}</b-badge>
+      </div>
+      <hr>
+      <div class="client-action-area my-4">
+        <b-button>Install Software</b-button>
+        <b-button variant="danger">Shutdown</b-button>
+        <!--<b-button variant="success"></b-button>-->
+        <b-button variant="outline-primary">Button</b-button>
+      </div>
+
       <b-nav tabs>
         <b-nav-item :active="showInfo" :to="{ name: 'client-info-page', params: { id: $route.params.id }}">
           Info
@@ -54,9 +62,7 @@
     props: ['showHardware', 'showInfo', 'showSoftware', 'showGroups'],
     data () {
       return {
-        client: false,
-        groups: [],
-        clientgroup: null
+        client: false
       }
     },
     computed: {
@@ -76,26 +82,8 @@
         }
       }
     },
-    methods: {
-      async loadGroups () {
-        const groups = await this.api.getAllHostGroups()
-        // console.log(res.data)
-        let self = this
-        self.groups.push({value: null, text: 'Please select an option'})
-        groups.data.forEach(function (element) {
-          self.groups.push({value: element.ident, text: element.ident})
-        })
-      },
-      async addToGroup () {
-        const {success, message} = await this.api.addClientToGroup(this.$route.params.id, this.clientgroup)
-        console.log(success)
-        console.log(message)
-        // TODO: add notification
-      }
-    },
     mounted () {
       this.client = this.$route.params.id
-      this.loadGroups()
     }
   }
 </script>

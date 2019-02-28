@@ -1,10 +1,17 @@
 <template>
   <div class="info">
-    <div v-if="groups">
+    <p>Group:</p>
+    <b-form-select v-model="selectedgroup" :options="allgroups"/>
+    <b-button variant="default" @click="addToGroup" class="mt-2 float-right">
+      Add to Group
+    </b-button>
+    {{selectedgroup}}
+
+    <div v-if="clientgroups">
       <h3>Groups</h3>
-      {{groups}}
+      {{clientgroups}}
     </div>
-    <InlineLoading :loading="!groups"></InlineLoading>
+    <InlineLoading :loading="!clientgroups"></InlineLoading>
   </div>
 </template>
 
@@ -22,14 +29,34 @@
     },
     data () {
       return {
-        groups: []
+        allgroups: [],
+        clientgroups: [],
+        selectedgroup: null
+      }
+    },
+    methods: {
+      async loadALLGroups () {
+        const groups = await this.api.getAllHostGroups()
+        // console.log(res.data)
+        let self = this
+        self.allgroups.push({value: null, text: 'Please select an option'})
+        groups.data.forEach(function (element) {
+          self.allgroups.push({value: element.ident, text: element.ident})
+        })
+      },
+      async addToGroup () {
+        const {success, message} = await this.api.addClientToGroup(this.$route.params.id, this.clientgroup)
+        console.log(success)
+        console.log(message)
+        // TODO: add notification
       }
     },
     mounted () {
-      this.groups = false
+      this.loadALLGroups()
+      this.clientgroups = false
       this.api.getClientGroups(this.clientid).then((res) => {
         // console.log(res.data)
-        this.groups = res.data
+        this.clientgroups = res.data
       })
     }
   }
