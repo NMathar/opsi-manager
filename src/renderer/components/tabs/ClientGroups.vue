@@ -1,18 +1,24 @@
 <template>
-  <div class="info">
-    <p>Group:</p>
-    <b-form-select v-model="selectedgroup" :options="allgroups"/>
-    <b-button variant="default" @click="addToGroup" class="mt-2 float-right">
-      Add to Group
-    </b-button>
-    {{selectedgroup}}
+    <div class="info">
+        <p>Add to Group:</p>
+        <b-form-select class="my-3" v-model="selectedgroup" :options="allgroups"/>
+        <b-button variant="outline-primary" v-if="selectedgroup" @click="addToGroup" class="my-3">Add to Group
+        </b-button>
 
-    <div v-if="clientgroups">
-      <h3>Groups</h3>
-      {{clientgroups}}
+        <div v-if="clientgroups">
+            <h3>Groups</h3>
+            <!--{{clientgroups}}-->
+            <div class="groupslist">
+                <ul>
+                    <li class="py-2" v-for="group in clientgroups" :key="group.groupId">
+                        {{group.groupId}}
+                        <b-button size="sm" variant="danger" @click="removeFromGroup(group.groupId)">Remove from Group</b-button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <InlineLoading :loading="!clientgroups"></InlineLoading>
     </div>
-    <InlineLoading :loading="!clientgroups"></InlineLoading>
-  </div>
 </template>
 
 <script>
@@ -44,20 +50,35 @@
           self.allgroups.push({value: element.ident, text: element.ident})
         })
       },
+      loadClientGroups () {
+        this.clientgroups = false
+        this.api.getClientGroups(this.clientid).then((res) => {
+          // console.log(res.data)
+          this.clientgroups = res.data
+        })
+      },
       async addToGroup () {
-        const {success, message} = await this.api.addClientToGroup(this.$route.params.id, this.clientgroup)
+        const {success, message} = await this.api.addClientToGroup(this.clientid, this.selectedgroup)
         console.log(success)
         console.log(message)
-        // TODO: add notification
+        // TODO: add notification and render update
+        if (success) {
+          this.loadClientGroups()
+        }
+      },
+      async removeFromGroup (groupId) {
+        const {success, message} = await this.api.removeClientFromGroup(this.clientid, groupId)
+        console.log(success)
+        console.log(message)
+        // TODO: add notification and render update
+        if (success) {
+          this.loadClientGroups()
+        }
       }
     },
     mounted () {
       this.loadALLGroups()
-      this.clientgroups = false
-      this.api.getClientGroups(this.clientid).then((res) => {
-        // console.log(res.data)
-        this.clientgroups = res.data
-      })
+      this.loadClientGroups()
     }
   }
 </script>
