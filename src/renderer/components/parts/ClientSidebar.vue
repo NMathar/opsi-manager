@@ -27,7 +27,7 @@
       </b-nav-item>
     </b-nav>
     <b-nav vertical v-if="groupNav">
-      <b-nav-item-dropdown v-for="(group, index) in groups" :key="index" :text="index">
+      <b-nav-item-dropdown v-if="groups" v-for="(group, index) in groups" :key="index" :text="index">
         <b-dropdown-item v-for="client in group" :key="client.clientId">
           {{client.clientId}}
         </b-dropdown-item>
@@ -46,7 +46,7 @@
     name: 'ClientSidebar',
     data () {
       return {
-        groupNav: false,
+        groupNav: true,
         clients: [],
         groups: []
       }
@@ -70,7 +70,7 @@
       })
       this.api.getAllHostGroupsWithClients().then((res) => {
         // console.log(res.data)
-        self.groups = res.data
+        this.groups = res.data
       })
     }
   }
