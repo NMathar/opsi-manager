@@ -12,7 +12,7 @@
             </div>
             <hr>
             <div class="client-action-area my-4">
-                <b-button>Install Software</b-button>
+                <b-button v-b-modal.installModal>Install Software</b-button>
                 <b-button variant="danger" v-b-modal.modalDelConfirm>Delete</b-button>
                 <!--<b-button variant="success"></b-button>-->
                 <b-button variant="outline-danger">Power - Off</b-button>
@@ -52,6 +52,12 @@
         <b-modal id="modalDelConfirm" title="Confirmation" @ok="deleteClient">Are you sure you want to delete
             the client {{client}}?
         </b-modal>
+
+        <!--Install software modal-->
+        <b-modal id="installModal" title="Packages" @show="loadInstallableSoftware" @ok="installSoftware">
+            <InstallModal :client-id="client"></InstallModal>
+        </b-modal>
+
     </div>
 </template>
 
@@ -61,10 +67,11 @@
   import InfoTab from '../tabs/Info'
   import SoftwareTab from '../tabs/Software'
   import GroupTab from '../tabs/ClientGroups'
+  import InstallModal from '../parts/InstallPackageModal'
 
   export default {
     name: 'Client',
-    components: {Loading, HardwareTab, InfoTab, SoftwareTab, GroupTab},
+    components: {Loading, HardwareTab, InfoTab, SoftwareTab, GroupTab, InstallModal},
     props: ['showHardware', 'showInfo', 'showSoftware', 'showGroups'],
     data () {
       return {
@@ -97,6 +104,16 @@
         } else {
           console.error(message)
         }
+      },
+      installSoftware () {
+        console.log('install software')
+        this.$emit('installModalShow', false)
+      },
+      async loadInstallableSoftware () {
+        console.log('load installable software for ' + this.client)
+        const {success, message} = await this.api.getInstallableProductIds(this.client)
+        console.log(success)
+        console.log(message)
       }
     },
     mounted () {
