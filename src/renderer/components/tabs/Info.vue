@@ -1,11 +1,30 @@
 <template>
-  <div class="info">
-    <div v-if="infodata">
-      <h3>Info</h3>
-      {{infodata}}
+    <div class="info">
+        <div v-if="infodata">
+            <h3>Info</h3>
+            <b-row>
+                <b-col>
+                    <p>Name: {{infodata.id}}</p>
+                    <p>IP: {{infodata.ipAddress}}</p>
+                    <p>Mac: {{infodata.hardwareAddress}}</p>
+                    <p>Inventory Number: {{infodata.inventoryNumber}}</p>
+                    <p>Created: {{infodata.created}}</p>
+                    <p>Last seen: {{infodata.lastSeen}}</p>
+                    <p>
+                        <b>Note:</b>
+                    </p>
+                    <p>
+                        {{infodata.note}}
+                    </p>
+                </b-col>
+                <b-col cols="4">
+                    <p><b>Description:</b></p>
+                    <p>{{infodata.description}}</p>
+                </b-col>
+            </b-row>
+        </div>
+        <InlineLoading :loading="!infodata"></InlineLoading>
     </div>
-    <InlineLoading :loading="!infodata"></InlineLoading>
-  </div>
 </template>
 
 <script>
