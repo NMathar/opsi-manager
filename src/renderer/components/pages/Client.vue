@@ -55,7 +55,7 @@
 
         <!--Install software modal-->
         <b-modal id="installModal" title="Packages" @show="loadInstallableSoftware" @ok="installSoftware">
-            <InstallModal :client-id="client"></InstallModal>
+            <InstallModal :software-array="installids"></InstallModal>
         </b-modal>
 
     </div>
@@ -75,7 +75,8 @@
     props: ['showHardware', 'showInfo', 'showSoftware', 'showGroups'],
     data () {
       return {
-        client: false
+        client: false,
+        installids: []
       }
     },
     computed: {
@@ -110,10 +111,8 @@
         this.$emit('installModalShow', false)
       },
       async loadInstallableSoftware () {
-        console.log('load installable software for ' + this.client)
-        const {success, message} = await this.api.getInstallableProductIds(this.client)
-        console.log(success)
-        console.log(message)
+        const {data} = await this.api.getInstallableProductIds(this.client)
+        this.installids = data
       }
     },
     mounted () {
