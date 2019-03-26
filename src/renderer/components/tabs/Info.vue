@@ -3,7 +3,7 @@
         <div v-if="infodata">
             <h3>Info</h3>
             <b-row>
-                <b-col>
+                <b-col class="border-right">
                     <p>Name: {{infodata.id}}</p>
                     <p>IP: {{infodata.ipAddress}}</p>
                     <p>Mac: {{infodata.hardwareAddress}}</p>
@@ -17,7 +17,7 @@
                         {{infodata.note}}
                     </p>
                 </b-col>
-                <b-col cols="4">
+                <b-col cols="5">
                     <p><b>Description:</b></p>
                     <p>{{infodata.description}}</p>
                 </b-col>

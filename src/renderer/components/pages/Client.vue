@@ -6,8 +6,8 @@
 
         <div class="clientInfo" v-if="client">
             <div class="client-status-area">
-                <b-badge variant="secondary">Last seen: {{new Date()}}</b-badge>
-                <b-badge variant="success">On</b-badge>
+                <b-badge variant="secondary">Last seen: {{clientinfodata.lastSeen}}</b-badge>
+                <b-badge :variant="clientstate ? 'success' : 'danger'">{{clientstate ? 'On' : 'Off'}}</b-badge>
                 <b-badge variant="warning">Packages to upgrade: {{Math.floor((Math.random() * 100) + 1)}}</b-badge>
             </div>
             <hr>
@@ -76,7 +76,9 @@
     data () {
       return {
         client: false,
-        installids: []
+        installids: [],
+        clientinfodata: false,
+        clientstate: false
       }
     },
     computed: {
@@ -106,6 +108,20 @@
           console.error(message)
         }
       },
+      getClientState () {
+        this.clientstate = false
+        this.api.isClientOn(this.client).then((res) => {
+          console.log(res.data)
+          this.clientstate = res.data[this.client]
+        })
+      },
+      getClientInfos () {
+        this.clientinfodata = false
+        this.api.getClientInfo(this.client).then((res) => {
+          // console.log(res.data)
+          this.clientinfodata = res.data
+        })
+      },
       installSoftware () {
         console.log('install software')
         this.$emit('installModalShow', false)
@@ -117,6 +133,8 @@
     },
     mounted () {
       this.client = this.$route.params.id
+      this.getClientInfos()
+      this.getClientState()
     }
   }
 </script>
