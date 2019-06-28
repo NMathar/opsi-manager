@@ -36,11 +36,10 @@ branches:
   - master
 deploy:
   provider: releases
-  api_key:
-    secure: "$GH_KEY"
+  api_key: $GITHUB_TOKEN
   file_glob: true
   file: build/*
   skip_cleanup: true
   on:
     tags: true
-    
+
