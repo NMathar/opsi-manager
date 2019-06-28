@@ -17,7 +17,10 @@
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "postinstall": "npm run lint:fix",
-    "release": "standard-version"
+    "release": "standard-version",
+    "preversion": "npm run lint",
+    "postversion": "git push && git push --tags",
+    "version": "git add -A src"
   },
   "build": {
     "productName": "opsi-manager",
