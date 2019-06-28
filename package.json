@@ -1,6 +1,6 @@
 {
   "name": "opsi-manager",
-  "version": "0.0.9",
+  "version": "0.0.8",
   "author": "NMathar <mail@mathar.work>",
   "description": "Alternative OPSI Administration UI",
   "license": "MIT",
@@ -17,9 +17,6 @@
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "postinstall": "npm run lint:fix",
-    "preversion": "npm run lint",
-    "postversion": "git push && git push --tags",
-    "version": "git add -A src",
     "release": "standard-version"
   },
   "build": {
