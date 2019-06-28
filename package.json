@@ -1,6 +1,6 @@
 {
   "name": "opsi-manager",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "NMathar <mail@mathar.work>",
   "description": "Alternative OPSI Administration UI",
   "license": "MIT",
