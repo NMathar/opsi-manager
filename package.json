@@ -1,6 +1,6 @@
 {
   "name": "opsi-manager",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "NMathar <mail@mathar.work>",
   "description": "Alternative OPSI Administration UI",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix",
     "preversion": "npm run lint",
     "postversion": "git push && git push --tags",
-    "version": "npm run format && git add -A src",
+    "version": "git add -A src",
     "release": "standard-version"
   },
   "build": {
