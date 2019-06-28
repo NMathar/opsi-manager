@@ -9,19 +9,14 @@
                     <font-awesome-icon icon="th-list"/>
                 </b-nav-item>
             </b-nav>
-
-            <b-form inline class="p-2">
-                <label class="sr-only" for="clientSearch">Search</label>
-                <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
-                    <b-input id="clientSearch" placeholder="Search"/>
-                </b-input-group>
-
-                <b-button variant="primary">
-                    <font-awesome-icon icon="search"/>
-                </b-button>
-            </b-form>
         </div>
         <b-nav vertical v-if="!groupNav">
+            <b-form class="p-2">
+                <label class="sr-only" for="clientSearch">Search</label>
+                <b-input-group class="mb-2">
+                    <b-input v-model="clientSearch" @input="search" id="clientSearch" placeholder="Search"/>
+                </b-input-group>
+            </b-form>
             <b-nav-item v-for="client in clients" :key="client.id"
                         :to="{ name: 'client-page', params: { id: client.id }}">{{client.id}}
             </b-nav-item>
@@ -46,16 +41,18 @@
 
 <script>
   import {library} from '@fortawesome/fontawesome-svg-core'
-  import {faSearch, faThList, faDesktop} from '@fortawesome/free-solid-svg-icons'
+  import {faSearch, faThList, faDesktop, faWindowClose} from '@fortawesome/free-solid-svg-icons'
 
-  library.add(faSearch, faThList, faDesktop)
+  library.add(faSearch, faThList, faDesktop, faWindowClose)
 
   export default {
     name: 'ClientSidebar',
     data () {
       return {
-        groupNav: true,
+        clientSearch: '',
+        groupNav: false,
         clients: [],
+        clientsOrig: [],
         groups: []
       }
     },
@@ -69,13 +66,21 @@
         return array.slice(0).sort(function (a, b) {
           return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0
         })
+      },
+      search () {
+        this.clients = this.clientsOrig.filter(obj => {
+          return obj.ident.includes(this.clientSearch)
+        })
+      },
+      loadAllClients () {
+        this.api.getAllClients().then((res) => {
+          this.clients = this.sortBy(res.data, 'id')
+          this.clientsOrig = this.sortBy(res.data, 'id')
+        })
       }
     },
     mounted () {
-      this.api.getAllClients().then((res) => {
-        // console.log(res.data)
-        this.clients = this.sortBy(res.data, 'id')
-      })
+      this.loadAllClients()
       this.api.getAllHostGroupsWithClients().then((res) => {
         // console.log(res.data)
         this.groups = res.data
