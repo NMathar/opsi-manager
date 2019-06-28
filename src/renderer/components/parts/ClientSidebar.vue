@@ -2,10 +2,10 @@
     <div>
         <div class="sticky-top bg-white">
             <b-nav fill tabs>
-                <b-nav-item active>
+                <b-nav-item @click="groupNav = false" :active="!groupNav">
                     <font-awesome-icon icon="desktop"/>
                 </b-nav-item>
-                <b-nav-item>
+                <b-nav-item @click="groupNav = true" :active="groupNav">
                     <font-awesome-icon icon="th-list"/>
                 </b-nav-item>
             </b-nav>
