@@ -15,8 +15,8 @@
                 <b-button v-b-modal.installModal>Install Software</b-button>
                 <b-button variant="danger" v-b-modal.modalDelConfirm>Delete</b-button>
                 <!--<b-button variant="success"></b-button>-->
-                <b-button variant="outline-danger">Power - Off</b-button>
-                <b-button variant="outline-success">Power - On</b-button>
+                <b-button v-if="clientstate" variant="outline-danger">Power - Off</b-button>
+                <b-button v-if="!clientstate" variant="outline-success">Power - On</b-button>
             </div>
 
             <b-nav tabs>
