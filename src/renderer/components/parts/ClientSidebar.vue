@@ -57,7 +57,7 @@
     data () {
       return {
         clientSearch: '',
-        groupNav: true,
+        groupNav: false,
         clients: [],
         clientsOrig: [],
         groups: []
