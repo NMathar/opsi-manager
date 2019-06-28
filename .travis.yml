@@ -34,3 +34,13 @@ script:
 branches:
   only:
   - master
+deploy:
+  provider: releases
+  api_key:
+    secure: "$GH_KEY"
+  file_glob: true
+  file: build/*
+  skip_cleanup: true
+  on:
+    tags: true
+    
