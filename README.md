@@ -1,5 +1,7 @@
 # opsi-manager
 
+[![DeepScan grade](https://deepscan.io/api/teams/3341/projects/4991/branches/38879/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3341&pid=4991&bid=38879)
+
 > Alternative OPSI Administration UI
 
 #### Build Setup
