@@ -31,9 +31,6 @@ install:
 - yarn
 script:
 - yarn run build
-branches:
-  only:
-  - master
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
