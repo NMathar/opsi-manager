@@ -51,6 +51,10 @@
     },
     "linux": {
       "icon": "build/icons"
+    },
+    "publish": {
+      "provider": "github",
+      "private": true
     }
   },
   "dependencies": {
