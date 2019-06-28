@@ -22,19 +22,26 @@
             </b-nav-item>
         </b-nav>
         <b-nav vertical v-if="groupNav && groups">
-            <b-nav-item-dropdown v-for="(group, index) in groups" :key="index" :text="index">
-                <b-form @submit.prevent>
-                    <p v-for="client in group"
-                       :key="client.clientId"
-                    >
-                        <b-link
-                                :to="{ name: 'client-page', params: { id: client.clientId }}"
-                                class="small pl-4"
-                        >{{client.clientId}}
-                        </b-link>
-                    </p>
-                </b-form>
-            </b-nav-item-dropdown>
+            <div role="tablist">
+                <div v-for="(group, index) in groups" :key="index" no-body class="mb-1">
+                    <div class="p-1" role="tab">
+                        <b-button block variant="outline-dark" v-b-toggle="index">{{index}}</b-button>
+                    </div>
+                    <b-collapse is-nav :id="index" visible accordion="my-accordion" role="tabpanel">
+                        <div>
+                            <p v-for="client in group"
+                               :key="client.clientId"
+                            >
+                                <b-link
+                                        :to="{ name: 'client-page', params: { id: client.clientId }}"
+                                        class="small pl-4"
+                                >{{client.clientId}}
+                                </b-link>
+                            </p>
+                        </div>
+                    </b-collapse>
+                </div>
+            </div>
         </b-nav>
     </div>
 </template>
@@ -50,7 +57,7 @@
     data () {
       return {
         clientSearch: '',
-        groupNav: false,
+        groupNav: true,
         clients: [],
         clientsOrig: [],
         groups: []
@@ -90,5 +97,17 @@
 </script>
 
 <style scoped>
+    .router-link-active {
+        font-weight: bold;
+    }
 
+    a:hover {
+        list-style: none;
+        border: none;
+        text-decoration: none;
+    }
+
+    [aria-expanded="true"] {
+        font-weight: bold;
+    }
 </style>
