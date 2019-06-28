@@ -36,7 +36,7 @@ branches:
   - master
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
+  api_key: $GH_TOKEN
   file_glob: true
   file: build/*
   skip_cleanup: true
