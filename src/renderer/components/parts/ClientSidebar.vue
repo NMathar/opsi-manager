@@ -21,8 +21,8 @@
                         :to="{ name: 'client-page', params: { id: client.id }}">{{client.id}}
             </b-nav-item>
         </b-nav>
-        <b-nav vertical v-if="groupNav">
-            <b-nav-item-dropdown v-if="groups" v-for="(group, index) in groups" :key="index" :text="index">
+        <b-nav vertical v-if="groupNav && groups">
+            <b-nav-item-dropdown v-for="(group, index) in groups" :key="index" :text="index">
                 <b-form @submit.prevent>
                     <p v-for="client in group"
                        :key="client.clientId"
