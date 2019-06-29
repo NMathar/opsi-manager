@@ -40,5 +40,5 @@ deploy:
   prerelease: false
   force_update: true
   on:
-    branch: master
+    branch: $(APPVEYOR_REPO_TAG_NAME)
     APPVEYOR_REPO_TAG: true
