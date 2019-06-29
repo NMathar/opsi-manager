@@ -29,15 +29,15 @@ build_script:
 test: off
 
 deploy:
-  release: githoard-v$(appveyor_build_version)
+  release: opsi-manager-v$(appveyor_build_version)
   description: "$APPVEYOR_REPO_COMMIT_MESSAGE"
   provider: GitHub
   auth_token:
     secure: "$GH_KEY"
   artifact: /.*\.exe/
-  draft: true
+  draft: false
   prerelease: false
   force_update: true
   on:
     branch: master
-    appveyor_repo_tag: true
+    APPVEYOR_REPO_TAG: true
