@@ -55,6 +55,7 @@
     "publish": {
       "provider": "github",
       "private": true,
+      "vPrefixedTagName": true,
       "releaseType": "release"
     }
   },

@@ -1,9 +1,8 @@
 version: 0.1.{build}
 
-skip_tags: false
 branches:
   only:
-    - /v\d*\.\d*\.\d*/
+    - master
 
 image: Visual Studio 2017
 platform:
