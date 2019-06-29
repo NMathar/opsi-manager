@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.29](https://github.com/NMathar/opsi-manager/compare/v0.0.28...v0.0.29) (2019-06-29)
+
+
+### Bug Fixes
+
+* no tag branch error ([2ade108](https://github.com/NMathar/opsi-manager/commit/2ade108))
+
+
+
 ### [0.0.28](https://github.com/NMathar/opsi-manager/compare/v0.0.27...v0.0.28) (2019-06-29)
 
 
