@@ -31,6 +31,7 @@ test: off
 deploy:
   release: opsi-manager-v$(appveyor_build_version)
   description: "$APPVEYOR_REPO_COMMIT_MESSAGE"
+  tag: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token:
     secure: "$GH_KEY"
