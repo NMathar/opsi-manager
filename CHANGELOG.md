@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.32](https://github.com/NMathar/opsi-manager/compare/v0.0.31...v0.0.32) (2019-06-29)
+
+
+### Bug Fixes
+
+* change image dimension ([7c2768d](https://github.com/NMathar/opsi-manager/commit/7c2768d))
+
+
+
 ### [0.0.31](https://github.com/NMathar/opsi-manager/compare/v0.0.30...v0.0.31) (2019-06-29)
 
 
