@@ -31,8 +31,10 @@ install:
 - yarn
 script:
 - yarn run build
+branches:
+  only:
+    - $TRAVIS_TAG
 deploy:
-  if: tag IS present
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
@@ -40,4 +42,5 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+    branch: $TRAVIS_TAG
 

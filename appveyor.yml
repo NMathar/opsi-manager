@@ -29,17 +29,17 @@ build_script:
 
 test: off
 
-deploy:
+#deploy:
   #release: opsi-manager-v$(appveyor_build_version)
-  description: "$APPVEYOR_REPO_COMMIT_MESSAGE"
-  tag: $(APPVEYOR_REPO_TAG_NAME)
-  provider: GitHub
-  auth_token:
-    secure: ($GH_KEY)
-  artifact: /.*\.exe/
-  draft: false
-  prerelease: false
-  force_update: true
-  on:
-    branch: $(APPVEYOR_REPO_TAG_NAME)
-    APPVEYOR_REPO_TAG: true
+  #description: "$APPVEYOR_REPO_COMMIT_MESSAGE"
+  #tag: $(APPVEYOR_REPO_TAG_NAME)
+  #provider: GitHub
+  #auth_token:
+  #  secure: ($GH_KEY)
+  #artifact: /.*\.exe/
+  #draft: false
+  #prerelease: false
+  #force_update: true
+  #on:
+  #  branch: $(APPVEYOR_REPO_TAG_NAME)
+  #  APPVEYOR_REPO_TAG: true
