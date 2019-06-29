@@ -30,6 +30,7 @@ test: off
 
 deploy:
   release: opsi-manager-v$(appveyor_build_version)
+  tag: $(APPVEYOR_REPO_TAG_NAME)
   description: "$APPVEYOR_REPO_COMMIT_MESSAGE"
   provider: GitHub
   auth_token:
