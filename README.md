@@ -1,5 +1,7 @@
 # opsi-manager
 
+![Logo](build/icons/256x256.png?raw=true)
+
 [![DeepScan grade](https://deepscan.io/api/teams/3341/projects/4991/branches/38879/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3341&pid=4991&bid=38879)
 
 [![Build](https://travis-ci.org/NMathar/opsi-manager.svg?branch=master)](https://travis-ci.org/NMathar/opsi-manager)
