@@ -1,8 +1,9 @@
 version: 0.1.{build}
 
-#branches:
-#  only:
-#    - master
+skip_tags: false
+branches:
+  only:
+    - master
 
 image: Visual Studio 2017
 platform:
@@ -34,7 +35,7 @@ deploy:
   tag: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token:
-    secure: "$GH_KEY"
+    secure: ($GH_KEY)
   artifact: /.*\.exe/
   draft: false
   prerelease: false
