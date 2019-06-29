@@ -1,4 +1,4 @@
-# opsi-manager
+# OPSI Manager
 
 ![Logo](build/icons/256x256.png?raw=true)
 
