@@ -32,6 +32,7 @@ install:
 script:
 - yarn run build
 deploy:
+  if: tag IS present
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
