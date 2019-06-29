@@ -35,13 +35,3 @@ script:
 branches:
   only:
     - master
-#deploy:
-#  provider: releases
-#  api_key: $GITHUB_TOKEN
-#  file_glob: true
-#  file: build/*
-#  skip_cleanup: true
-#  on:
-#    tags: true
-#    branch: $TRAVIS_TAG
-
